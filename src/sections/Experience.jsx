@@ -1,76 +1,81 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { useMouseTilt } from '../hooks/useMouseTilt';
 
 const experiences = [
   {
-    title: "MERN Stack Intern",
+    role: "Frontend Developer",
+    company: "Freelance / Projects",
+    duration: "2023 - Present",
+    description: "Building responsive and modern web interfaces using React and Tailwind, focusing on performance and user experience.",
+    tags: ["React", "Tailwind", "UI/UX", "Frontend"]
+  },
+  {
+    role: "MERN Stack Intern",
     company: "Edubuk",
-    period: "Internship",
-    description: "Architected and optimized full-stack features using the MERN ecosystem for advanced ed-tech solutions.",
+    duration: "Internship",
+    description: "Worked on full-stack features using MERN stack, optimizing performance and building scalable components.",
     tags: ["React", "Node.js", "MongoDB", "Express"]
   },
   {
-    title: "Campus Ambassador",
+    role: "Campus Ambassador",
     company: "eDC IIT Delhi",
-    period: "2023 - Present",
-    description: "Driving entrepreneurship culture and representing the elite e-cell of IIT Delhi on campus.",
+    duration: "2023 - Present",
+    description: "Promoting entrepreneurship culture, organizing events, and connecting students with opportunities.",
     tags: ["Leadership", "Networking", "Events"]
   },
   {
-    title: "Founder",
-    company: "GraphEra",
-    period: "2024 - Present",
-    description: "Directing a premium design & development agency focused on high-end digital branding.",
-    tags: ["Strategy", "Creative", "Agency"]
+    role: "Founder & Community Lead",
+    company: "TechEra",
+    duration: "Current",
+    description: "Built and scaled a student tech community organizing hackathons, events, and networking initiatives.",
+    tags: ["Community", "Leadership", "Tech Events"]
   },
   {
-    title: "Founder",
-    company: "TechEra",
-    period: "Current",
-    description: "Spearheading a major student tech community to bridge the gap between learning and industry.",
-    tags: ["Community", "Innovation", "Web3"]
+    role: "Founder & Designer/Developer",
+    company: "GraphEra",
+    duration: "2024 - Present",
+    description: "Running a digital design and development agency delivering websites, graphics, and project solutions.",
+    tags: ["Design", "Development", "Agency"]
+  },
+  {
+    role: "Hackathon Participant",
+    company: "Various Events",
+    duration: "Ongoing",
+    description: "Actively participating in hackathons, building real-world solutions under time constraints.",
+    tags: ["Problem Solving", "Teamwork", "Rapid Development"]
   }
 ];
 
 const ExperienceCard = ({ exp, index }) => {
-  const { ref, tiltStyle, handleMouseMove, handleMouseLeave } = useMouseTilt({ max: 5 });
-
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ delay: index * 0.1 }}
-      className="perspective-1000"
+      className="h-full"
     >
-      <div
-        ref={ref}
-        onMouseMove={handleMouseMove}
-        onMouseLeave={handleMouseLeave}
-        className="glass-card group hover:border-primary/30 relative flex flex-col h-full cursor-default transition-all duration-300"
-        style={{
-          transformStyle: 'preserve-3d',
-          transform: `rotateX(${tiltStyle.rotateX}) rotateY(${tiltStyle.rotateY})`,
-        }}
-      >
-        <div className="absolute top-6 right-6 opacity-5 group-hover:opacity-20 transition-opacity translate-z-10">
-          <span className="text-6xl font-black italic">{index + 1}</span>
+      <div className="group h-full flex flex-col justify-between glass-card p-10 border-white/5 hover:border-blue-400/30 transition-all duration-300 hover:-translate-y-1.5 card-3d">
+        <div>
+           <div className="flex flex-col md:flex-row md:items-center justify-between mb-8 gap-4">
+              <div>
+                 <span className="text-primary font-black uppercase tracking-[0.4em] text-[10px] mb-2 block">{exp.duration}</span>
+                 <h3 className="text-3xl font-black italic tracking-tight group-hover:text-primary transition-colors">{exp.role}</h3>
+                 <p className="text-white/60 font-medium text-lg">{exp.company}</p>
+              </div>
+              <div className="text-5xl font-black text-white/5 italic opacity-20 group-hover:opacity-100 group-hover:text-primary/20 transition-all duration-700">
+                 {index + 1}
+              </div>
+           </div>
+           
+           <p className="text-white/40 leading-relaxed mb-8 font-light italic">
+              "{exp.description}"
+           </p>
         </div>
         
-        <div className="mb-6 translate-z-20">
-           <span className="text-[10px] font-black text-accent uppercase tracking-[0.4em]">{exp.period}</span>
-           <h3 className="text-2xl font-black mt-2 text-white group-hover:text-primary transition-colors tracking-tighter">{exp.title}</h3>
-           <p className="text-sm font-bold text-white/40 tracking-widest">{exp.company}</p>
-        </div>
-
-        <p className="text-white/50 mb-8 flex-grow leading-relaxed font-light italic">
-          "{exp.description}"
-        </p>
-
-        <div className="flex flex-wrap gap-2 mt-auto translate-z-10">
-          {exp.tags.map(tag => (
-            <span key={tag} className="text-[9px] font-black bg-white/5 px-3 py-1 rounded-full text-white/30 border border-white/5 group-hover:border-primary/20 transition-colors">
+        <div className="flex flex-wrap gap-2">
+          {exp.tags.map((tag, i) => (
+            <span key={i} className="text-[9px] font-black uppercase tracking-widest px-3 py-1.5 rounded-full bg-white/5 text-white/50 border border-white/5 group-hover:border-primary/20 group-hover:text-white transition-all">
               {tag}
             </span>
           ))}
@@ -82,21 +87,31 @@ const ExperienceCard = ({ exp, index }) => {
 
 const Experience = () => {
   return (
-    <section id="experience" className="section-padding overflow-hidden">
-      <div className="mb-20">
-        <h2 className="text-5xl font-black mb-6">The <span className="text-primary italic font-serif">Trajectory</span></h2>
-        <p className="text-white/30 max-w-lg font-light leading-relaxed">
-           A strategic timeline of professional growth, leadership roles, and architectural contributions.
+    <section id="experience" className="py-24 relative overflow-visible bg-surface/5">
+      <div className="max-w-6xl mx-auto px-6">
+      {/* Light Orbs */}
+      <div className="light-orb w-[600px] h-[600px] -top-[20%] -left-[10%] opacity-5" />
+      
+      <div className="mb-20 relative z-10">
+        <div className="flex items-center gap-4 mb-6">
+           <div className="h-1 w-12 bg-accent rounded-full opacity-50" />
+           <span className="text-accent font-black tracking-widest text-xs uppercase">
+              {experiences.length}+ Experiences
+           </span>
+        </div>
+        <h2 className="text-6xl font-black mb-4 tracking-tighter">Experience</h2>
+        <p className="text-white/30 max-w-2xl font-light text-lg">
+           A timeline of my work, leadership, and real-world contributions.
         </p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-        {experiences.map((exp, index) => (
-          <ExperienceCard key={index} exp={exp} index={index} />
-        ))}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 relative z-10 items-stretch">
+          {experiences.map((exp, index) => (
+            <ExperienceCard key={index} exp={exp} index={index} />
+          ))}
+        </div>
       </div>
     </section>
   );
 };
-
 export default Experience;
