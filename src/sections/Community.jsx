@@ -34,78 +34,84 @@ const CommunityCard = ({ community, index }) => {
   
   return (
     <motion.div
-      initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
+      initial={{ opacity: 0, x: index % 2 === 0 ? -50 : 50 }}
+      whileInView={{ opacity: 1, x: 0 }}
       viewport={{ once: true }}
-      transition={{ delay: index * 0.1 }}
+      transition={{ duration: 0.8 }}
     >
       <div 
         onClick={() => navigate(community.path)}
-        className={`group glass-card p-0 overflow-hidden border-white/5 transition-all duration-300 [transform-style:preserve-3d] hover:[transform:rotateX(4deg)_rotateY(-4deg)_scale(1.01)] cursor-pointer ${isBlue ? 'hover:border-blue-400/40' : 'hover:border-purple-400/40'}`}
+        className="glass-card !p-8 group hover:border-primary/30 transition-all duration-500 cursor-pointer overflow-hidden relative"
       >
-        <div className="grid grid-cols-1 md:grid-cols-[1fr_2fr]">
-           {/* Logo Container Section */}
-           <div className="h-48 md:h-64 relative flex items-center justify-center bg-white/5 border-r border-white/5 overflow-hidden">
-              {/* Branding Glow */}
-              <div 
-                className={`absolute w-[200px] h-[200px] blur-2xl rounded-full opacity-20 z-[0] pointer-events-none ${isBlue ? 'bg-blue-500/20' : 'bg-purple-500/20'}`} 
-              />
-              
-              <img 
-                src={community.logo} 
-                alt={community.name} 
-                className="relative z-10 max-h-[120px] max-w-[80%] object-contain hover:scale-110 transition duration-500" 
-              />
-           </div>
-           
-           <div className="p-10 flex flex-col justify-center relative z-10">
-              <div className="flex items-center gap-2 mb-4">
-                 <span className={`font-black tracking-[0.3em] uppercase text-[9px] px-3 py-1 border rounded-full ${isBlue ? 'text-blue-400 bg-blue-400/10 border-blue-400/20' : 'text-purple-400 bg-purple-400/10 border-purple-400/20'}`}>
-                   {community.stats}
-                 </span>
-              </div>
-              
-              <h3 className={`text-4xl font-black mb-1 transition-colors italic leading-none ${isBlue ? 'group-hover:text-blue-400' : 'group-hover:text-purple-400'}`}>
-                {community.name}
-              </h3>
-              <p className="text-white/40 font-bold text-xs tracking-widest uppercase mb-6">{community.role}</p>
-              
-              <p className="text-white/30 text-sm font-light leading-relaxed max-w-sm mb-8">
-                 {community.description}
-              </p>
-              
-              <div className="flex items-center gap-4 group-hover:gap-6 transition-all duration-500">
-                 <div className={`h-0.5 w-10 rounded-full group-hover:w-16 transition-all duration-500 ${isBlue ? 'bg-blue-400' : 'bg-purple-400'}`} />
-                 <span className="text-white/20 group-hover:text-white font-black uppercase tracking-widest text-[9px]">
-                    {community.cta} →
-                 </span>
-              </div>
-           </div>
+        <div className="flex flex-col md:flex-row items-center gap-8 relative z-10">
+          {/* Circular Glowing Logo */}
+          <div className="relative shrink-0">
+             <div className={`absolute inset-0 rounded-full blur-2xl opacity-20 group-hover:opacity-40 transition-opacity duration-500 ${isBlue ? 'bg-primary' : 'bg-secondary'}`} />
+             <div className="relative w-24 h-24 md:w-32 md:h-32 rounded-full border border-white/10 glass-premium p-4 group-hover:scale-110 transition-transform duration-500 shadow-xl flex items-center justify-center">
+                <img 
+                  src={community.logo} 
+                  alt={community.name} 
+                  className="w-full h-full object-contain img-premium !grayscale-0" 
+                />
+             </div>
+          </div>
+          
+          <div className="flex-1 text-center md:text-left">
+            <div className="flex flex-wrap items-center justify-center md:justify-start gap-4 mb-4">
+               <span className={`text-[10px] font-bold uppercase tracking-widest px-3 py-1 rounded-full border ${isBlue ? 'text-primary border-primary/20 bg-primary/5' : 'text-secondary border-secondary/20 bg-secondary/5'}`}>
+                 {community.stats}
+               </span>
+               <span className="text-white/30 text-[10px] font-bold uppercase tracking-widest">{community.role}</span>
+            </div>
+            
+            <h3 className="text-3xl md:text-5xl font-bold text-white mb-4 group-hover:text-primary transition-colors">
+              {community.name}
+            </h3>
+            
+            <p className="text-white/40 text-lg leading-relaxed mb-8 max-w-xl">
+               {community.description}
+            </p>
+            
+            <div className="flex items-center justify-center md:justify-start gap-4 group-hover:gap-6 transition-all duration-500">
+               <div className="btn-primary !py-2 !px-6 !text-xs">
+                  {community.cta}
+               </div>
+            </div>
+          </div>
         </div>
+
+        {/* Decorative corner glow */}
+        <div className={`absolute -bottom-10 -right-10 w-40 h-40 rounded-full blur-3xl opacity-10 pointer-events-none transition-opacity duration-500 group-hover:opacity-20 ${isBlue ? 'bg-primary' : 'bg-secondary'}`} />
       </div>
     </motion.div>
   );
 };
 
-
 const Community = () => {
   return (
-    <section id="ecosystems" className="section-padding relative overflow-hidden">
-      {/* Background Orbs */}
-      <div className="light-orb w-[500px] h-[500px] -bottom-[10%] -left-[10%] opacity-5" />
-      
-      <div className="flex flex-col items-center text-center mb-16 relative z-10">
-        <h2 className="text-6xl font-black mb-4 tracking-tighter">Building <span className="text-accent italic">Ecosystems</span></h2>
-        <p className="text-white/30 max-w-xl font-light text-lg">
-           Driving technological growth through community-centric initiatives and creative professional excellence.
-        </p>
-      </div>
+    <section id="ecosystems" className="section-padding relative overflow-hidden bg-background">
+      <div className="container-custom">
+        <div className="mb-20 text-center">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+          >
+            <span className="text-primary font-bold uppercase tracking-[0.3em] text-xs mb-4 block">Building Global Networks</span>
+            <h2 className="text-4xl md:text-6xl font-bold tracking-tight text-white mb-6">Ecosystems</h2>
+            <div className="h-1.5 w-20 bg-gradient-to-r from-primary to-accent rounded-full mx-auto" />
+          </motion.div>
+        </div>
 
-      <div className="flex flex-col gap-12 relative z-10 max-w-5xl mx-auto">
-        {communities.map((community, index) => (
-          <CommunityCard key={index} community={community} index={index} />
-        ))}
+        <div className="flex flex-col gap-12 relative z-10 max-w-5xl mx-auto">
+          {communities.map((community, index) => (
+            <CommunityCard key={index} community={community} index={index} />
+          ))}
+        </div>
       </div>
+      
+      {/* Background Decor */}
+      <div className="light-orb w-[600px] h-[600px] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-5" />
     </section>
   );
 };
