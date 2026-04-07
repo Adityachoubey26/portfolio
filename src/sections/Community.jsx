@@ -91,7 +91,7 @@ const Community = () => {
   return (
     <section id="ecosystems" className="section-padding relative overflow-hidden bg-background">
       <div className="container-custom">
-        <div className="mb-20 text-center">
+        <div className="mb-16 text-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -103,7 +103,7 @@ const Community = () => {
           </motion.div>
         </div>
 
-        <div className="flex flex-col gap-12 relative z-10 max-w-5xl mx-auto">
+        <div className="flex flex-col gap-8 relative z-10 max-w-5xl mx-auto">
           {communities.map((community, index) => (
             <CommunityCard key={index} community={community} index={index} />
           ))}

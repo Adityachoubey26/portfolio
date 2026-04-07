@@ -40,7 +40,7 @@ const About = () => {
               viewport={{ once: true }}
             >
               <span className="text-primary font-bold uppercase tracking-[0.3em] text-xs mb-4 block">Professional Story</span>
-              <h2 className="text-4xl md:text-6xl font-bold tracking-tight text-white mb-8">
+              <h2 className="text-4xl md:text-6xl font-bold tracking-tight text-white mb-16">
                 About <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary">Me</span>
               </h2>
               

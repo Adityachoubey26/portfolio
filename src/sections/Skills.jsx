@@ -44,9 +44,9 @@ const skillCategories = [
 
 const Skills = () => {
   return (
-    <section id="skills" className="section-padding relative overflow-hidden bg-background">
+    <section id="skills" className="section-padding relative overflow-hidden bg-background h-auto min-h-0">
       <div className="container-custom">
-        <div className="mb-20 text-center md:text-left">
+        <div className="mb-16 text-center md:text-left">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -58,7 +58,7 @@ const Skills = () => {
           </motion.div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 items-start">
           {skillCategories.map((category, idx) => (
             <motion.div
               key={idx}
@@ -98,7 +98,7 @@ const Skills = () => {
       </div>
       
       {/* Background Decor */}
-      <div className="light-orb w-[600px] h-[600px] -bottom-1/4 -left-1/4 opacity-5" />
+      <div className="light-orb w-[600px] h-[600px] absolute -bottom-48 -left-48 opacity-5 pointer-events-none" />
     </section>
   );
 };

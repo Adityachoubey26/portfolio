@@ -4,7 +4,7 @@ import adityaPic from '../assets/aditya_pic.jpeg';
 
 const Hero = () => {
   return (
-    <section id="hero" className="min-h-screen flex items-center pt-20 pb-16 md:py-32 relative overflow-hidden bg-background">
+    <section id="hero" className="flex items-center pt-28 pb-20 md:pt-36 md:pb-24 relative overflow-hidden bg-background">
       {/* Background Orbs */}
       <div className="light-orb w-[600px] h-[600px] -top-20 -left-20 opacity-20" />
       <div className="light-orb w-[400px] h-[400px] bottom-20 right-20 opacity-10" />
@@ -25,9 +25,9 @@ const Hero = () => {
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.2 }}
-            className="inline-block px-4 py-1.5 rounded-full bg-primary/10 border border-primary/20 mb-8"
+            className="inline-block px-4 py-1.5 rounded-full bg-blue-500/10 border border-blue-500/30 mb-8 mt-16 md:mt-0"
           >
-            <span className="text-primary font-bold text-xs uppercase tracking-widest">Available for Innovation</span>
+            <span className="text-blue-400 font-bold text-xs uppercase tracking-widest">Available for Innovation</span>
           </motion.div>
 
           <h1 className="text-5xl md:text-8xl font-bold leading-[1.1] mb-8 tracking-tight">

@@ -22,7 +22,7 @@ const education = [
 
 const Education = () => {
   return (
-    <section id="education" className="py-24 relative overflow-hidden bg-background">
+    <section id="education" className="section-padding relative overflow-hidden bg-background">
       <div className="container-custom">
         <div className="mb-16 relative z-10 text-center md:text-left">
           <motion.div
