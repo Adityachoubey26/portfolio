@@ -59,6 +59,26 @@
     100% { transform: translateY(0px); }
   }
 
+  .perspective-1000 {
+    perspective: 1000px;
+  }
+
+  .underline-gradient {
+    position: relative;
+    display: inline-block;
+  }
+
+  .underline-gradient::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 60%;
+    height: 4px;
+    background: linear-gradient(to r, theme('colors.primary'), theme('colors.secondary'));
+    border-radius: 2px;
+  }
+
   .animate-float {
     animation: float 4s ease-in-out infinite;
   }
