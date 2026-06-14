@@ -55,13 +55,15 @@ const Navbar = () => {
             {/* Desktop Links */}
             <div className="hidden md:flex items-center gap-8">
               {navLinks.map((link) => (
-                <a
+                <motion.a
                   key={link.name}
                   href={link.href}
-                  className="text-[10px] font-bold uppercase tracking-[0.2em] text-white/50 hover:text-primary transition-all duration-300"
+                  whileHover={{ y: -2 }}
+                  transition={{ type: 'spring', stiffness: 400, damping: 10 }}
+                  className="text-[10px] font-bold uppercase tracking-[0.2em] text-white/50 hover:text-primary transition-all duration-300 relative py-1"
                 >
                   {link.name}
-                </a>
+                </motion.a>
               ))}
             </div>
 

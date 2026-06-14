@@ -76,17 +76,22 @@ const Skills = () => {
                 {category.skills.map((skill, sIdx) => (
                   <motion.div
                     key={sIdx}
-                    whileHover={{ x: 5 }}
-                    className="group flex items-center gap-4 transition-all duration-300"
+                    whileHover={{ 
+                      y: -5, 
+                      scale: 1.02,
+                      boxShadow: "0 12px 24px -10px rgba(59, 130, 246, 0.25)"
+                    }}
+                    transition={{ type: 'spring', stiffness: 350, damping: 15 }}
+                    className="group flex items-center gap-4 p-3 rounded-2xl bg-white/[0.02] border border-white/5 hover:border-primary/30 hover:bg-primary/5 transition-all duration-500 shadow-md cursor-default"
                   >
-                    <div className="w-12 h-12 rounded-full flex items-center justify-center bg-white/5 border border-white/10 group-hover:bg-primary/10 group-hover:border-primary/30 transition-all duration-500 p-2.5 shadow-xl">
+                    <div className="w-11 h-11 rounded-xl flex items-center justify-center bg-white/5 border border-white/10 group-hover:bg-primary/10 group-hover:border-primary/30 transition-all duration-500 p-2.5 shadow-inner">
                       <img 
                         src={skill.icon} 
                         alt={skill.name} 
                         className="w-full h-full object-contain filter grayscale group-hover:grayscale-0 group-hover:scale-110 transition-all duration-500" 
                       />
                     </div>
-                    <span className="text-sm font-medium text-white/40 group-hover:text-white transition-colors">
+                    <span className="text-sm font-semibold text-white/40 group-hover:text-white transition-colors">
                       {skill.name}
                     </span>
                   </motion.div>

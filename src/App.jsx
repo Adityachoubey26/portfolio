@@ -13,6 +13,9 @@ import ProjectDetail from './pages/ProjectDetail';
 import TechEra from './pages/TechEra';
 import GraphEra from './pages/GraphEra';
 import ScrollToTop from './components/ScrollToTop';
+import InteractiveBackground from './components/InteractiveBackground';
+import CustomCursor from './components/CustomCursor';
+import ScrollReveal from './components/ScrollReveal';
 
 // Helper component to handle anchor scrolling across routes
 const AnchorScroll = () => {
@@ -35,13 +38,13 @@ const Home = () => {
   return (
     <>
       <Hero />
-      <About />
-      <Experience />
-      <Education />
-      <Projects />
-      <Skills />
-      <Community />
-      <Contact />
+      <ScrollReveal><About /></ScrollReveal>
+      <ScrollReveal><Experience /></ScrollReveal>
+      <ScrollReveal><Education /></ScrollReveal>
+      <ScrollReveal><Projects /></ScrollReveal>
+      <ScrollReveal><Skills /></ScrollReveal>
+      <ScrollReveal><Community /></ScrollReveal>
+      <ScrollReveal><Contact /></ScrollReveal>
     </>
   );
 };
@@ -55,7 +58,13 @@ function App() {
         {/* Global Noise Overlay */}
         <div className="noise" />
         
-        {/* Persistent Background Blobs */}
+        {/* Interactive 3D Background */}
+        <InteractiveBackground />
+        
+        {/* High-end Custom Cursor Follower & Snapping System */}
+        <CustomCursor />
+        
+        {/* Persistent Background Glows */}
         <div className="fixed inset-0 pointer-events-none -z-20 overflow-hidden">
            <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-primary/20 blur-[150px] rounded-full animate-blob opacity-30" />
            <div className="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] bg-secondary/10 blur-[150px] rounded-full animate-blob animation-delay-4000 opacity-20" />
