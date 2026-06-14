@@ -4,6 +4,13 @@ import { useNavigate } from 'react-router-dom';
 
 const projects = [
   {
+    id: "rescueiq",
+    title: "RescueIQ",
+    category: "AI-POWERED DISASTER RESPONSE",
+    description: "A real-time disaster response intelligence platform designed to help emergency teams coordinate incidents, manage shelters, dispatch rescue units, monitor affected regions, and make faster decisions using AI-powered insights.",
+    image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=1472&auto=format&fit=crop"
+  },
+  {
     id: "student-portal",
     title: "Student Portal WEB APP",
     category: "MANAGEMENT SYSTEM",

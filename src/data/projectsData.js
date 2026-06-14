@@ -1,4 +1,39 @@
 export const projectsData = {
+  "rescueiq": {
+    title: "RescueIQ",
+    category: "AI-POWERED DISASTER RESPONSE",
+    description: "A real-time disaster response intelligence platform designed to help emergency teams coordinate incidents, manage shelters, dispatch rescue units, monitor affected regions, and make faster decisions using AI-powered insights.",
+    detailedDescription: "RescueIQ is an advanced crisis response system integrating state-of-the-art AI analytics and real-time operations coordination. The platform coordinates emergency responder dispatch, registers and tracks disaster shelters, and facilitates rapid aid distribution under high-stress scenarios.",
+    problemText: "Traditional disaster management models suffer from disjointed communications, slow resource dispatch, lack of real-time mapping, and high opacity in disaster relief coordination.",
+    solutionText: "RescueIQ leverages real-time incident mapping, automated shelter management, and AI routing coordination to ensure efficient resource deployment and transparent aid delivery.",
+    impactItems: ["Uses AI analytics to prioritize emergency tasks and routing", "Coordinates incident management and shelter check-ins in real time", "Ensures high performance and responsive layout for active field operations"],
+    techStack: ["React", "Node.js", "MongoDB", "AI", "Dashboard Analytics", "Real-Time Monitoring"],
+    detailedFeatures: [
+      { 
+        title: "AI Incident Mapping", 
+        description: "Real-time disaster mapping and path optimization for response vehicles.",
+        icon: "https://cdn-icons-png.flaticon.com/512/1163/1163661.png"
+      },
+      { 
+        title: "Shelter Management", 
+        description: "Real-time capacity check, resource allocation, and occupant registry.",
+        icon: "https://cdn-icons-png.flaticon.com/512/2103/2103371.png"
+      },
+      { 
+        title: "Real-Time Analytics", 
+        description: "Live dashboard tracking emergency metrics, responder locations, and resource status.",
+        icon: "https://cdn-icons-png.flaticon.com/512/4342/4342728.png"
+      }
+    ],
+    github: "https://github.com/Amritas851203/RescuelQ",
+    live: "#",
+    images: [
+      "https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=1472&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1470&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?q=80&w=1470&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?q=80&w=1470&auto=format&fit=crop"
+    ]
+  },
   "student-portal": {
     title: "Student Portal Web App",
     category: "MANAGEMENT SYSTEM",

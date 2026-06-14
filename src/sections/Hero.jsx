@@ -89,7 +89,7 @@ const Hero = () => {
             Creative Frontend Developer & <span className="text-white">Community Architect</span> crafting digital ecosystems with precision.
           </motion.p>
 
-          <motion.div variants={itemVariants} className="flex flex-col sm:flex-row items-center gap-6 justify-center md:justify-start">
+          <motion.div variants={itemVariants} className="flex flex-col sm:flex-row items-center gap-6 justify-center md:justify-start mb-14">
             <a href="#projects" className="btn-primary w-full sm:w-auto">
               Explore Works
               <span className="text-xl">→</span>
@@ -97,6 +97,23 @@ const Hero = () => {
             <a href="#contact" className="btn-secondary w-full sm:w-auto">
               Let's Talk
             </a>
+          </motion.div>
+
+          {/* Scroll Indicator mimicking the screenshot */}
+          <motion.div 
+            variants={itemVariants} 
+            className="flex flex-col items-center md:items-start gap-2.5 opacity-40 select-none mt-12"
+          >
+            <span className="text-[9px] font-extrabold tracking-[0.3em] text-white/60 uppercase">
+              Scroll To Explore
+            </span>
+            <div className="w-[18px] h-[30px] rounded-full border-2 border-white/30 flex justify-center p-1 relative overflow-hidden">
+              <motion.div 
+                animate={{ y: [0, 8, 0] }}
+                transition={{ repeat: Infinity, duration: 1.6, ease: "easeInOut" }}
+                className="w-1 h-1.5 bg-blue-400 rounded-full"
+              />
+            </div>
           </motion.div>
         </motion.div>
 
