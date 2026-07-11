@@ -41,7 +41,7 @@ export const printStartupBanner = ({ startupTimeMs }: StartupBannerOptions): voi
     separator(),
     formatLine('MongoDB Connection', mongoStatus.label, mongoStatus.isSuccess),
     formatLine('Server URL', baseUrl, true),
-    formatLine('Health Endpoint', `${baseUrl}/health`, true),
+    formatLine('Health Endpoint', `${baseUrl}/api/health`, true),
     formatLine('API Base URL', `${baseUrl}${API_PREFIX}`, true),
     formatLine('Environment', env.NODE_ENV, true),
     formatLine('Port', String(env.PORT), true),

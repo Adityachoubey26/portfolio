@@ -17,7 +17,6 @@ const seoSchema = new Schema<SeoDocument>(
   { timestamps: true }
 );
 
-seoSchema.index({ pageKey: 1 }, { unique: true });
 seoSchema.index({ isPublished: 1 });
 
 export const SeoModel = model<SeoDocument>('Seo', seoSchema);

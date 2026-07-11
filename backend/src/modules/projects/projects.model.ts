@@ -32,7 +32,6 @@ const projectSchema = new Schema<ProjectDocument>(
   { timestamps: true }
 );
 
-projectSchema.index({ slug: 1 }, { unique: true });
 projectSchema.index({ isPublished: 1, order: 1 });
 
 export const ProjectModel = model<ProjectDocument>('Project', projectSchema);

@@ -14,11 +14,13 @@ const getEnv = (key: string, fallback?: string): string => {
   return value;
 };
 
+const nodeEnv = getEnv('NODE_ENV', 'development');
+
 export const env = {
-  NODE_ENV: getEnv('NODE_ENV', 'development'),
+  NODE_ENV: nodeEnv,
   PORT: Number(getEnv('PORT', '5000')),
   MONGODB_URI: process.env.MONGODB_URI?.trim() ?? '',
   CLIENT_URL: getEnv('CLIENT_URL', 'http://localhost:5173'),
-  LOG_LEVEL: getEnv('LOG_LEVEL', 'info'),
-  isProduction: getEnv('NODE_ENV', 'development') === 'production',
+  LOG_LEVEL: getEnv('LOG_LEVEL', nodeEnv === 'production' ? 'info' : 'http'),
+  isProduction: nodeEnv === 'production',
 };

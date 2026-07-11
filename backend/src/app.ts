@@ -31,6 +31,7 @@ app.use(
 );
 
 app.get('/health', healthCheckHandler);
+app.get('/api/health', healthCheckHandler);
 
 app.get('/', (_req, res) => {
   res.status(200).json({
