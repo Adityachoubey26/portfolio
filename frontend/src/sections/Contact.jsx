@@ -1,108 +1,168 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Mail, Phone, Linkedin, Instagram, Github, Twitter } from 'lucide-react';
+import { Mail, Phone, Linkedin, Instagram, Github, Twitter, Send } from 'lucide-react';
 
-const Contact = () => {
-  const socialLinks = [
-    { icon: <Linkedin size={20} />, url: "https://www.linkedin.com/in/aditya-c-366b90305/", color: "hover:text-blue-500" },
-    { icon: <Instagram size={20} />, url: "https://www.instagram.com/aditya_choubey26", color: "hover:text-pink-500" },
-    { icon: <Github size={20} />, url: "https://github.com/Adityachoubey26", color: "hover:text-white" },
-    { icon: <Twitter size={20} />, url: "https://x.com/ChoubeyIx", color: "hover:text-blue-400" },
-    { icon: <Phone size={20} />, url: "https://wa.me/919310526618", color: "hover:text-green-500" }
-  ];
+const socialLinks = [
+  { icon: <Linkedin size={18} />, url: "https://www.linkedin.com/in/aditya-c-366b90305/", name: "LinkedIn" },
+  { icon: <Instagram size={18} />, url: "https://www.instagram.com/aditya_choubey26", name: "Instagram" },
+  { icon: <Github size={18} />, url: "https://github.com/Adityachoubey26", name: "GitHub" },
+  { icon: <Twitter size={18} />, url: "https://x.com/ChoubeyIx", name: "Twitter" },
+  { icon: <Phone size={18} />, url: "https://wa.me/919310526618", name: "WhatsApp" }
+];
 
+export const Contact = () => {
   return (
-    <section id="contact" className="section-padding relative overflow-hidden bg-background">
-      <div className="light-orb w-[600px] h-[600px] top-[10%] -right-[10%] opacity-10 animate-float" />
-      <div className="light-orb w-[300px] h-[300px] bottom-[10%] -left-[5%] opacity-5 animate-float-slow" />
-      
+    <section id="contact" className="section-padding relative overflow-hidden bg-transparent">
       <div className="container-custom relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-          <motion.div
-            initial={{ opacity: 0, x: -50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-          >
-            <span className="text-primary font-bold uppercase tracking-[0.3em] text-xs mb-4 block">Get In Touch</span>
-            <h2 className="text-5xl md:text-7xl font-bold tracking-tighter leading-tight text-white mb-12">
-              Let's <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-purple-500">Talk</span>
-            </h2>
-            <p className="text-white/40 text-lg leading-relaxed max-w-md mb-12">
-              Ready to architect high-end digital solutions? Reach out for collaborations or project inquiries.
-            </p>
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
+          {/* Left Column: Contact Information */}
+          <div className="lg:col-span-5">
+            <motion.div
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+            >
+              <span className="text-teal-700 font-bold uppercase tracking-[0.25em] text-xs mb-2 block">
+                Get In Touch
+              </span>
+              <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-slate-900 mb-6 leading-tight">
+                Let's <span className="text-teal-700">Talk</span>
+              </h2>
+              <p className="text-slate-600 text-base sm:text-lg leading-relaxed mb-8">
+                Ready to build high-impact digital experiences or scale community initiatives? Let's connect and create something exceptional.
+              </p>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-6 mb-12">
-              <a href="mailto:aditya.choubey.soe@gmail.com" className="glass-card group flex items-center gap-6 !p-6 hover:border-primary/30 hover:scale-[1.02] transition-all duration-300">
-                <div className="w-14 h-14 rounded-2xl bg-primary/10 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-all shadow-xl">
-                  <Mail size={24} />
-                </div>
-                <div className="overflow-hidden">
-                  <p className="text-[10px] font-bold uppercase tracking-widest text-white/30">Email Address</p>
-                  <p className="text-base sm:text-lg font-bold text-white truncate">aditya.choubey.soe@gmail.com</p>
-                </div>
-              </a>
+              <div className="flex flex-col gap-4 mb-8">
+                {/* Email Link Card */}
+                <a
+                  href="mailto:aditya.choubey.soe@gmail.com"
+                  className="bg-white rounded-2xl p-4 sm:p-5 border border-slate-200/80 shadow-soft hover:shadow-card hover:border-teal-500/30 flex items-center gap-4 transition-all duration-200 group"
+                >
+                  <div className="w-12 h-12 rounded-xl bg-teal-50 text-teal-700 flex items-center justify-center shrink-0 group-hover:bg-teal-600 group-hover:text-white transition-colors duration-200 shadow-soft-xs">
+                    <Mail size={22} />
+                  </div>
+                  <div className="overflow-hidden">
+                    <p className="text-[11px] font-bold uppercase tracking-wider text-slate-400 mb-0.5">
+                      Email Address
+                    </p>
+                    <p className="text-sm sm:text-base font-bold text-slate-900 group-hover:text-teal-700 transition-colors truncate">
+                      aditya.choubey.soe@gmail.com
+                    </p>
+                  </div>
+                </a>
 
-              <a href="https://wa.me/919310526618" target="_blank" rel="noopener noreferrer" className="glass-card group flex items-center gap-6 !p-6 hover:border-accent/30 hover:scale-[1.02] transition-all duration-300">
-                <div className="w-14 h-14 rounded-2xl bg-accent/10 flex items-center justify-center text-accent group-hover:bg-accent group-hover:text-white transition-all shadow-xl">
-                  <Phone size={24} />
-                </div>
-                <div>
-                  <p className="text-[10px] font-bold uppercase tracking-widest text-white/30">WhatsApp</p>
-                  <p className="text-base sm:text-lg font-bold text-white">+91 93105 26618</p>
-                </div>
-              </a>
-            </div>
-
-            {/* Social Links Row */}
-            <div className="flex items-center gap-4 justify-center md:justify-start">
-              {socialLinks.map((link, idx) => (
-                <a 
-                  key={idx}
-                  href={link.url}
+                {/* WhatsApp Link Card */}
+                <a
+                  href="https://wa.me/919310526618"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className={`w-11 h-11 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white/50 transition-all duration-300 hover:bg-blue-500/10 hover:border-blue-500/30 hover:scale-110 shadow-lg ${link.color}`}
+                  className="bg-white rounded-2xl p-4 sm:p-5 border border-slate-200/80 shadow-soft hover:shadow-card hover:border-emerald-500/30 flex items-center gap-4 transition-all duration-200 group"
                 >
-                  {link.icon}
+                  <div className="w-12 h-12 rounded-xl bg-emerald-50 text-emerald-700 flex items-center justify-center shrink-0 group-hover:bg-emerald-600 group-hover:text-white transition-colors duration-200 shadow-soft-xs">
+                    <Phone size={22} />
+                  </div>
+                  <div>
+                    <p className="text-[11px] font-bold uppercase tracking-wider text-slate-400 mb-0.5">
+                      WhatsApp Direct
+                    </p>
+                    <p className="text-sm sm:text-base font-bold text-slate-900 group-hover:text-emerald-700 transition-colors">
+                      +91 93105 26618
+                    </p>
+                  </div>
                 </a>
-              ))}
-            </div>
-          </motion.div>
+              </div>
 
-          <motion.div
-            initial={{ opacity: 0, x: 50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            className="glass-card !p-8 md:!p-12 relative overflow-hidden"
-          >
-            <div className="absolute top-0 right-0 w-32 h-32 bg-primary/10 blur-3xl rounded-full" />
-            
-            <form action="https://formspree.io/f/mqkrvvpo" method="POST" className="relative z-10 space-y-8">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div className="space-y-3 text-left">
-                  <label className="text-[10px] font-bold uppercase tracking-widest text-white/50 ml-2">Name</label>
-                  <input type="text" name="name" placeholder="Aditya" className="w-full bg-white/5 border border-white/10 rounded-xl px-6 py-4 focus:outline-none focus:ring-2 focus:ring-blue-500/50 text-white transition-all" required />
-                </div>
-                <div className="space-y-3 text-left">
-                  <label className="text-[10px] font-bold uppercase tracking-widest text-white/50 ml-2">Email</label>
-                  <input type="email" name="email" placeholder="example@gmail.com" className="w-full bg-white/5 border border-white/10 rounded-xl px-6 py-4 focus:outline-none focus:ring-2 focus:ring-blue-500/50 text-white transition-all" required />
+              {/* Social Links Row */}
+              <div className="pt-6 border-t border-slate-200/70">
+                <p className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-3">
+                  Find me online:
+                </p>
+                <div className="flex items-center gap-2.5">
+                  {socialLinks.map((link, idx) => (
+                    <a
+                      key={idx}
+                      href={link.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={link.name}
+                      className="w-10 h-10 rounded-xl bg-white border border-slate-200/80 text-slate-600 hover:text-teal-700 hover:border-teal-400/50 hover:bg-teal-50/50 flex items-center justify-center transition-all duration-200 shadow-soft-xs hover:shadow-soft hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-600"
+                    >
+                      {link.icon}
+                    </a>
+                  ))}
                 </div>
               </div>
-              
-              <div className="space-y-3 text-left">
-                <label className="text-[10px] font-bold uppercase tracking-widest text-white/50 ml-2">Message</label>
-                <textarea name="message" placeholder="Tell me about your project..." rows="4" className="w-full bg-white/5 border border-white/10 rounded-xl px-6 py-6 focus:outline-none focus:ring-2 focus:ring-blue-500/50 text-white transition-all resize-none" required></textarea>
-              </div>
-              
-              <button type="submit" className="btn-primary w-full !py-5 group relative overflow-hidden shadow-[0_0_20px_rgba(59,130,246,0.2)] hover:shadow-[0_0_30px_rgba(59,130,246,0.4)] transition-all">
-                <span className="relative z-10 flex items-center justify-center gap-2">
-                  Send Message
-                  <motion.span animate={{ x: [0, 5, 0] }} transition={{ repeat: Infinity, duration: 1.5 }}>🚀</motion.span>
-                </span>
-                <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-purple-600 opacity-0 group-hover:opacity-20 transition-opacity" />
-              </button>
-            </form>
-          </motion.div>
+            </motion.div>
+          </div>
+
+          {/* Right Column: Clean Formspree Message Form */}
+          <div className="lg:col-span-7">
+            <motion.div
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.1 }}
+              className="bg-white rounded-3xl border border-slate-200/80 shadow-card p-6 sm:p-10"
+            >
+              <h3 className="font-display text-xl font-bold text-slate-900 mb-1">
+                Send a Message
+              </h3>
+              <p className="text-slate-500 text-sm mb-6">
+                Fill out the form below and I'll get back to you within 24 hours.
+              </p>
+
+              <form action="https://formspree.io/f/mqkrvvpo" method="POST" className="space-y-5">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                  <div>
+                    <label className="text-xs font-bold uppercase tracking-wider text-slate-500 block mb-1.5">
+                      Your Name
+                    </label>
+                    <input
+                      type="text"
+                      name="name"
+                      placeholder="e.g. Alex Sharma"
+                      className="w-full bg-slate-50/80 border border-slate-200/90 rounded-xl px-4 py-3.5 focus:outline-none focus:ring-2 focus:ring-teal-600/30 focus:border-teal-600 text-slate-900 placeholder:text-slate-400 text-sm transition-all"
+                      required
+                    />
+                  </div>
+                  <div>
+                    <label className="text-xs font-bold uppercase tracking-wider text-slate-500 block mb-1.5">
+                      Email Address
+                    </label>
+                    <input
+                      type="email"
+                      name="email"
+                      placeholder="alex@example.com"
+                      className="w-full bg-slate-50/80 border border-slate-200/90 rounded-xl px-4 py-3.5 focus:outline-none focus:ring-2 focus:ring-teal-600/30 focus:border-teal-600 text-slate-900 placeholder:text-slate-400 text-sm transition-all"
+                      required
+                    />
+                  </div>
+                </div>
+
+                <div>
+                  <label className="text-xs font-bold uppercase tracking-wider text-slate-500 block mb-1.5">
+                    Your Message
+                  </label>
+                  <textarea
+                    name="message"
+                    placeholder="Tell me about your project, ideas, or timeline..."
+                    rows="5"
+                    className="w-full bg-slate-50/80 border border-slate-200/90 rounded-xl px-4 py-3.5 focus:outline-none focus:ring-2 focus:ring-teal-600/30 focus:border-teal-600 text-slate-900 placeholder:text-slate-400 text-sm transition-all resize-none"
+                    required
+                  />
+                </div>
+
+                <button
+                  type="submit"
+                  className="btn-primary w-full !py-4 font-bold text-sm tracking-wide flex items-center justify-center gap-2"
+                >
+                  <span>Send Message</span>
+                  <Send size={16} />
+                </button>
+              </form>
+            </motion.div>
+          </div>
         </div>
       </div>
     </section>

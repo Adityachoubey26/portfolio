@@ -13,10 +13,12 @@ import { resumeRoutes } from '../../modules/resume/index.js';
 import { seoRoutes } from '../../modules/seo/index.js';
 import { settingsRoutes } from '../../modules/settings/index.js';
 import { contactRoutes } from '../../modules/contact/index.js';
+import { authRoutes } from '../../modules/auth/index.js';
 
 const router = Router();
 
 router.use('/health', healthRoutes);
+router.use('/auth', authRoutes);
 router.use('/hero', heroRoutes);
 router.use('/about', aboutRoutes);
 router.use('/experience', experienceRoutes);

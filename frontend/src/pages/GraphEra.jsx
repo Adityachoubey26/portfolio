@@ -37,7 +37,7 @@ const GraphEra = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-background text-white selection:bg-purple-500/30 font-sans relative overflow-x-hidden">
+    <div className="min-h-screen bg-[#020617] text-white selection:bg-purple-500/30 font-sans relative overflow-x-hidden">
       {/* Background Blobs */}
       <div className="fixed top-0 left-0 w-full h-full pointer-events-none -z-10">
          <div className="absolute top-[-10%] right-[-10%] w-[40%] h-[40%] bg-purple-500/10 blur-[150px] rounded-full" />

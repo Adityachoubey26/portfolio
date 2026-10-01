@@ -13,9 +13,9 @@ import ProjectDetail from './pages/ProjectDetail';
 import TechEra from './pages/TechEra';
 import GraphEra from './pages/GraphEra';
 import ScrollToTop from './components/ScrollToTop';
-import InteractiveBackground from './components/InteractiveBackground';
-import CustomCursor from './components/CustomCursor';
+import AmbientBackground from './components/AmbientBackground';
 import ScrollReveal from './components/ScrollReveal';
+import Footer from './components/Footer';
 
 // Helper component to handle anchor scrolling across routes
 const AnchorScroll = () => {
@@ -44,7 +44,7 @@ const Home = () => {
       <ScrollReveal><Projects /></ScrollReveal>
       <ScrollReveal><Skills /></ScrollReveal>
       <ScrollReveal><Community /></ScrollReveal>
-      <ScrollReveal><Contact /></ScrollReveal>
+      <Contact />
     </>
   );
 };
@@ -54,24 +54,13 @@ function App() {
     <Router>
       <ScrollToTop />
       <AnchorScroll />
-      <div className="bg-background min-h-screen text-white selection:bg-primary/30 font-sans relative overflow-x-hidden">
-        {/* Global Noise Overlay */}
-        <div className="noise" />
-        
-        {/* Interactive 3D Background */}
-        <InteractiveBackground />
-        
-        {/* High-end Custom Cursor Follower & Snapping System */}
-        <CustomCursor />
-        
-        {/* Persistent Background Glows */}
-        <div className="fixed inset-0 pointer-events-none -z-20 overflow-hidden">
-           <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-primary/20 blur-[150px] rounded-full animate-blob opacity-30" />
-           <div className="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] bg-secondary/10 blur-[150px] rounded-full animate-blob animation-delay-4000 opacity-20" />
-        </div>
+      <div className="min-h-screen bg-canvas text-slate-900 font-sans relative overflow-x-hidden">
+        {/* Subtle Light Ambient Background (soft teal, cyan, mint) */}
+        <AmbientBackground />
 
+        {/* Floating Light Navbar */}
         <Navbar />
-        
+
         <main className="relative z-10">
           <Routes>
             <Route path="/" element={<Home />} />
@@ -80,14 +69,9 @@ function App() {
             <Route path="/graphera" element={<GraphEra />} />
           </Routes>
         </main>
-        
-        <footer className="py-16 text-center border-t border-white/5 relative z-10 bg-background/80 backdrop-blur-md">
-          <div className="container-custom">
-            <p className="text-white/20 text-[10px] font-bold tracking-[0.4em] uppercase">
-               © {new Date().getFullYear()} ADITYA CHOUBEY. ARCHITECTING THE FUTURE.
-            </p>
-          </div>
-        </footer>
+
+        {/* Premium Dark Footer */}
+        <Footer />
       </div>
     </Router>
   );

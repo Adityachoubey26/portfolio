@@ -1,16 +1,27 @@
 import React from 'react';
-import { motion } from 'framer-motion';
+import { motion, useReducedMotion } from 'framer-motion';
 
-const ScrollReveal = ({ children, delay = 0, duration = 0.9 }) => {
+/**
+ * High-performance, layout-stable ScrollReveal component.
+ * Uses pure opacity transitions without vertical translation (y), scaling, or blur filters
+ * to prevent layout shifts, footer instability, and GPU rasterization lag.
+ */
+const ScrollReveal = ({ children, delay = 0, duration = 0.5 }) => {
+  const shouldReduceMotion = useReducedMotion();
+
+  if (shouldReduceMotion) {
+    return <div className="w-full">{children}</div>;
+  }
+
   return (
     <motion.div
-      initial={{ opacity: 0, y: 50, scale: 0.96, filter: 'blur(6px)' }}
-      whileInView={{ opacity: 1, y: 0, scale: 1, filter: 'blur(0px)' }}
-      viewport={{ once: true, margin: '-10% 0px -10% 0px' }}
+      initial={{ opacity: 0 }}
+      whileInView={{ opacity: 1 }}
+      viewport={{ once: true, margin: '0px 0px -40px 0px' }}
       transition={{
         duration: duration,
         delay: delay,
-        ease: [0.16, 1, 0.3, 1], // Linear/Apple deceleration curve
+        ease: 'easeOut',
       }}
       className="w-full"
     >

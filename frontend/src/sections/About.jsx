@@ -1,20 +1,27 @@
 import React, { useRef } from 'react';
-import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
+import { motion, useMotionValue, useSpring, useTransform, useReducedMotion } from 'framer-motion';
+import { ArrowRight, Sparkles } from 'lucide-react';
 import character from '../assets/3D_character.png';
 
-const About = () => {
+export const About = () => {
   const containerRef = useRef(null);
+  const shouldReduceMotion = useReducedMotion();
 
   // Mouse tracking logic for 3D effect
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
 
   const springConfig = { damping: 25, stiffness: 150 };
-  const rotateX = useSpring(useTransform(mouseY, [-0.5, 0.5], [15, -15]), springConfig);
-  const rotateY = useSpring(useTransform(mouseX, [-0.5, 0.5], [-15, 15]), springConfig);
+  const rotateX = useSpring(useTransform(mouseY, [-0.5, 0.5], [10, -10]), springConfig);
+  const rotateY = useSpring(useTransform(mouseX, [-0.5, 0.5], [-10, 10]), springConfig);
+
+  const badge1X = useTransform(mouseX, [-0.5, 0.5], [15, -15]);
+  const badge1Y = useTransform(mouseY, [-0.5, 0.5], [15, -15]);
+  const badge2X = useTransform(mouseX, [-0.5, 0.5], [-20, 20]);
+  const badge2Y = useTransform(mouseY, [-0.5, 0.5], [8, -8]);
 
   const handleMouseMove = (e) => {
-    if (!containerRef.current) return;
+    if (shouldReduceMotion || !containerRef.current) return;
     const rect = containerRef.current.getBoundingClientRect();
     const x = (e.clientX - rect.left) / rect.width - 0.5;
     const y = (e.clientY - rect.top) / rect.height - 0.5;
@@ -28,125 +35,141 @@ const About = () => {
   };
 
   return (
-    <section id="about" className="section-padding relative overflow-hidden bg-background">
-      {/* Background Orbs with subtle mouse parallax */}
-      <motion.div 
-        style={{ x: useTransform(mouseX, [-0.5, 0.5], [50, -50]), y: useTransform(mouseY, [-0.5, 0.5], [50, -50]) }}
-        className="light-orb w-[600px] h-[600px] top-1/4 -left-1/4 opacity-20" 
-      />
-      
+    <section id="about" className="section-padding relative overflow-hidden bg-transparent">
       <div className="container-custom relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24 items-center">
-          {/* Left Side: Interactive 3D Character */}
-          <div 
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+          {/* Left Side: Interactive 3D Character Presentation */}
+          <div
             ref={containerRef}
             onMouseMove={handleMouseMove}
             onMouseLeave={handleMouseLeave}
-            className="relative flex justify-center order-2 lg:order-1 perspective-1000"
+            className="relative flex justify-center order-2 lg:order-1 profile-card-container"
           >
+            {/* Ambient backlight glow */}
+            <div
+              className="absolute inset-0 rounded-3xl bg-gradient-to-tr from-teal-400/15 via-cyan-400/10 to-emerald-300/10 blur-2xl -z-10 opacity-70"
+              aria-hidden="true"
+            />
+
             <motion.div
-              style={{ rotateX, rotateY, transformStyle: "preserve-3d" }}
-              initial={{ opacity: 0, scale: 0.9 }}
+              style={{
+                rotateX: shouldReduceMotion ? 0 : rotateX,
+                rotateY: shouldReduceMotion ? 0 : rotateY,
+                transformStyle: 'preserve-3d',
+              }}
+              initial={{ opacity: 0, scale: 0.95 }}
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
-              className="relative w-full max-w-[450px] aspect-[4/5] rounded-[2.5rem] overflow-hidden glass-premium border border-white/10 group shadow-[0_50px_100px_-20px_rgba(0,0,0,0.5)]"
+              transition={{ duration: 0.7 }}
+              className="relative w-full max-w-[420px] aspect-[4/5] rounded-3xl bg-white border border-slate-200/80 shadow-card hover:shadow-card-hover group overflow-hidden p-4"
             >
-              {/* Dynamic Glow Overlay */}
-              <motion.div 
-                style={{
-                  background: useTransform(
-                    [mouseX, mouseY],
-                    ([x, y]) => `radial-gradient(circle at ${50 + x * 100}% ${50 + y * 100}%, rgba(59, 130, 246, 0.15) 0%, transparent 80%)`
-                  )
-                }}
-                className="absolute inset-0 z-10 pointer-events-none"
+              {/* Subtle background gradient inside card */}
+              <div className="absolute inset-0 bg-gradient-to-tr from-teal-50/60 via-slate-50/40 to-cyan-50/30 rounded-3xl" />
+
+              <motion.img
+                src={character}
+                alt="Aditya Choubey 3D Avatar"
+                style={{ translateZ: shouldReduceMotion ? 0 : 30 }}
+                className="w-full h-full object-contain relative z-10 drop-shadow-[0_15px_35px_rgba(15,23,42,0.15)] scale-105"
               />
 
-              <div className="absolute inset-0 bg-gradient-to-tr from-primary/10 via-transparent to-secondary/5" />
-              
-              <motion.img 
-                src={character} 
-                alt="3D Developer" 
-                style={{ translateZ: 50 }}
-                className="w-full h-full object-contain img-premium drop-shadow-[0_20px_50px_rgba(0,0,0,0.5)] scale-110"
-              />
-              
-              {/* Floating Code/Decorative elements inside the box for depth */}
-              <div className="absolute bottom-8 left-8 right-8 p-6 glass-premium rounded-2xl border-white/5 backdrop-blur-md transform translate-z-100 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                <div className="flex items-center gap-3">
-                   <div className="w-3 h-3 rounded-full bg-red-400" />
-                   <div className="w-3 h-3 rounded-full bg-yellow-400" />
-                   <div className="w-3 h-3 rounded-full bg-green-400" />
-                   <span className="text-[10px] text-white/40 font-mono ml-2">portfolio.tsx</span>
+              {/* Floating Code Snippet inside the card */}
+              <div className="absolute bottom-6 left-6 right-6 p-4 rounded-xl bg-slate-900/90 text-white border border-slate-800 shadow-xl backdrop-blur-md z-20 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                <div className="flex items-center gap-2 mb-2">
+                  <span className="w-2.5 h-2.5 rounded-full bg-red-400" />
+                  <span className="w-2.5 h-2.5 rounded-full bg-amber-400" />
+                  <span className="w-2.5 h-2.5 rounded-full bg-emerald-400" />
+                  <span className="text-[10px] text-slate-400 font-mono ml-1.5">developer.ts</span>
                 </div>
-                <p className="text-xs text-white/60 font-mono mt-3 leading-relaxed">
-                   const developer = {'{'} <br/>
-                   &nbsp;&nbsp;name: "Aditya",<br/>
-                   &nbsp;&nbsp;focus: "Frontend & 3D Web"<br/>
-                   {'}'}
+                <p className="text-[11px] text-slate-300 font-mono leading-relaxed">
+                  <span className="text-teal-400">const</span> developer = {'{'}<br />
+                  &nbsp;&nbsp;name: <span className="text-amber-300">"Aditya Choubey"</span>,<br />
+                  &nbsp;&nbsp;focus: <span className="text-amber-300">"Frontend & Community"</span><br />
+                  {'}'};
                 </p>
               </div>
             </motion.div>
 
-            {/* Decorative Badges Outside */}
-            <motion.div 
-              style={{ x: useTransform(mouseX, [-0.5, 0.5], [20, -20]), y: useTransform(mouseY, [-0.5, 0.5], [20, -20]) }}
-              className="absolute -top-10 -right-6 glass-premium p-5 rounded-2xl border border-white/10 shadow-2xl animate-float z-20"
+            {/* Decorative Floating Badges Outside */}
+            <motion.div
+              style={{
+                x: shouldReduceMotion ? 0 : badge1X,
+                y: shouldReduceMotion ? 0 : badge1Y,
+              }}
+              className="absolute -top-6 -right-4 bg-white/95 backdrop-blur-md p-3.5 rounded-2xl border border-slate-200/90 shadow-soft z-20 flex items-center gap-2"
             >
-               <span className="text-4xl">🚀</span>
+              <span className="text-2xl">🚀</span>
+              <div>
+                <p className="text-[11px] font-bold text-slate-900 leading-tight">Visionary</p>
+                <p className="text-[10px] text-slate-500 font-medium">Impact-Driven</p>
+              </div>
             </motion.div>
-            
-            <motion.div 
-              style={{ x: useTransform(mouseX, [-0.5, 0.5], [-30, 30]), y: useTransform(mouseY, [-0.5, 0.5], [10, -10]) }}
-              className="absolute -bottom-6 -left-10 glass-premium p-4 rounded-xl border border-white/5 shadow-xl animate-float-slow hidden md:block"
+
+            <motion.div
+              style={{
+                x: shouldReduceMotion ? 0 : badge2X,
+                y: shouldReduceMotion ? 0 : badge2Y,
+              }}
+              className="absolute -bottom-4 -left-6 bg-white/95 backdrop-blur-md px-3.5 py-2 rounded-xl border border-slate-200/90 shadow-soft hidden md:flex items-center gap-2 z-20"
             >
-               <div className="flex items-center gap-2">
-                  <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
-                  <span className="text-[10px] font-bold text-white/70 uppercase tracking-widest">Available for Innovation</span>
-               </div>
+              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+              <span className="text-[11px] font-semibold text-slate-700">Open for Collaboration</span>
             </motion.div>
           </div>
 
-          {/* Right Side: Content */}
+          {/* Right Side: Editorial Content */}
           <div className="order-1 lg:order-2">
             <motion.div
-              initial={{ opacity: 0, x: 50 }}
-              whileInView={{ opacity: 1, x: 0 }}
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.8 }}
+              transition={{ duration: 0.6 }}
             >
-              <span className="text-primary font-bold uppercase tracking-[0.4em] text-xs mb-6 block">The Tech Visionary</span>
-              <h2 className="text-5xl md:text-7xl font-bold tracking-tight text-white mb-10 leading-tight">
-                About <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500 underline-gradient">Me</span>
+              <span className="text-teal-700 font-bold uppercase tracking-[0.25em] text-xs mb-3 block">
+                The Tech Visionary
+              </span>
+
+              <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-slate-900 mb-6 leading-tight">
+                About <span className="text-teal-700">Me</span>
               </h2>
-              
-              <div className="space-y-8 text-white/50 text-lg md:text-xl leading-relaxed max-w-xl">
+
+              <div className="space-y-5 text-slate-600 text-base sm:text-lg leading-relaxed max-w-xl">
                 <p>
-                  I'm <span className="text-white font-bold border-b-2 border-primary/30">Aditya Choubey</span>, a Frontend Developer and Community Builder dedicated to crafting digital masterpieces.
+                  I'm <span className="text-slate-900 font-bold">Aditya Choubey</span>, a Frontend Developer and Community Builder dedicated to crafting intentional, high-performance digital experiences.
                 </p>
                 <p>
-                  Currently pushing boundaries in <span className="text-white/80 italic font-medium">Information Technology</span>, I specialize in the intersection of <span className="text-primary">React</span>, <span className="text-secondary">3D Visuals</span>, and <span className="text-accent">User Experience</span>.
+                  Currently pushing boundaries in <span className="text-slate-800 font-medium italic">Information Technology</span>, I specialize in the intersection of <span className="text-teal-700 font-semibold">React</span>, <span className="text-cyan-700 font-semibold">Modern UI Systems</span>, and <span className="text-emerald-700 font-semibold">Community Leadership</span>.
                 </p>
-                
-                <div className="grid grid-cols-2 gap-8 pt-6">
-                   <div className="glass-card !p-8 border-white/5 hover:border-primary/30 group transition-all duration-500">
-                      <h4 className="text-4xl font-extrabold text-white group-hover:text-primary transition-colors mb-2">10+</h4>
-                      <p className="text-[10px] uppercase tracking-[0.2em] font-bold text-white/40">Successful Events</p>
-                   </div>
-                   <div className="glass-card !p-8 border-white/5 hover:border-secondary/30 group transition-all duration-500">
-                      <h4 className="text-4xl font-extrabold text-white group-hover:text-secondary transition-colors mb-2">02</h4>
-                      <p className="text-[10px] uppercase tracking-[0.2em] font-bold text-white/40">Tech Foundations</p>
-                   </div>
+
+                {/* Stat Counters */}
+                <div className="grid grid-cols-2 gap-4 sm:gap-6 pt-4">
+                  <div className="bg-white rounded-2xl p-6 border border-slate-200/80 shadow-soft hover:shadow-card hover:border-teal-500/30 group transition-all">
+                    <h4 className="font-display text-4xl font-extrabold text-slate-900 group-hover:text-teal-700 transition-colors mb-1">
+                      10+
+                    </h4>
+                    <p className="text-xs uppercase tracking-wider font-semibold text-slate-500">
+                      Successful Events
+                    </p>
+                  </div>
+                  <div className="bg-white rounded-2xl p-6 border border-slate-200/80 shadow-soft hover:shadow-card hover:border-cyan-500/30 group transition-all">
+                    <h4 className="font-display text-4xl font-extrabold text-slate-900 group-hover:text-cyan-700 transition-colors mb-1">
+                      02
+                    </h4>
+                    <p className="text-xs uppercase tracking-wider font-semibold text-slate-500">
+                      Tech Foundations
+                    </p>
+                  </div>
                 </div>
 
-                <div className="pt-10 flex flex-wrap gap-6">
-                   <a href="#contact" className="btn-primary !px-10 !py-4 shadow-primary/20">
-                     <span>Get in Touch</span>
-                     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
-                   </a>
-                   <a href="#experience" className="btn-secondary !px-10 !py-4 border-white/10 hover:border-white/20">
-                     Explore Work
-                   </a>
+                {/* Action CTAs */}
+                <div className="pt-6 flex flex-wrap gap-4">
+                  <a href="#contact" className="btn-primary">
+                    <span>Get in Touch</span>
+                    <ArrowRight size={16} />
+                  </a>
+                  <a href="#experience" className="btn-secondary">
+                    Explore Experience
+                  </a>
                 </div>
               </div>
             </motion.div>

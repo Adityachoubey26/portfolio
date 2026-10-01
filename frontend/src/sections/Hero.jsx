@@ -1,178 +1,128 @@
-import React, { useRef } from 'react';
-import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
-import adityaPic from '../assets/aditya_pic.jpeg';
+import React from 'react';
+import { motion, useReducedMotion } from 'framer-motion';
+import { ArrowRight, Github, Linkedin, Twitter, Mail, Sparkles } from 'lucide-react';
+import heroData from '../data/heroData';
+import Badge from '../components/ui/Badge';
+import Button from '../components/ui/Button';
+import ProfileCard from '../components/ProfileCard';
+import StaggerContainer from '../components/animations/StaggerContainer';
+import { fadeUpItem, getReducedVariant } from '../utils/animations';
 
-const Hero = () => {
-  // 3D Tilt calculations for the profile picture
-  const cardRef = useRef(null);
-  const x = useMotionValue(0);
-  const y = useMotionValue(0);
-  
-  const rotateX = useSpring(useTransform(y, [-0.5, 0.5], [12, -12]), { damping: 25, stiffness: 120 });
-  const rotateY = useSpring(useTransform(x, [-0.5, 0.5], [-12, 12]), { damping: 25, stiffness: 120 });
+export const Hero = () => {
+  const shouldReduceMotion = useReducedMotion();
+  const itemVariant = getReducedVariant(fadeUpItem, shouldReduceMotion);
 
-  // Sheen highlight coordinates
-  const reflectX = useSpring(useTransform(x, [-0.5, 0.5], [0, 100]), { damping: 25, stiffness: 120 });
-  const reflectY = useSpring(useTransform(y, [-0.5, 0.5], [0, 100]), { damping: 25, stiffness: 120 });
-
-  const handleMouseMove = (e) => {
-    if (!cardRef.current) return;
-    const rect = cardRef.current.getBoundingClientRect();
-    const width = rect.width;
-    const height = rect.height;
-    const mouseX = e.clientX - rect.left - width / 2;
-    const mouseY = e.clientY - rect.top - height / 2;
-    x.set(mouseX / width);
-    y.set(mouseY / height);
-  };
-
-  const handleMouseLeave = () => {
-    x.set(0);
-    y.set(0);
-  };
-
-  // Staggered child variants for text reveal
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.12,
-        delayChildren: 0.1,
-      },
-    },
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 30, filter: 'blur(4px)' },
-    visible: {
-      opacity: 1,
-      y: 0,
-      filter: 'blur(0px)',
-      transition: { type: 'spring', stiffness: 90, damping: 15 },
-    },
+  const getSocialIcon = (name) => {
+    switch (name) {
+      case 'GitHub':
+        return <Github size={18} />;
+      case 'LinkedIn':
+        return <Linkedin size={18} />;
+      case 'Twitter':
+        return <Twitter size={18} />;
+      case 'Email':
+        return <Mail size={18} />;
+      default:
+        return <Sparkles size={18} />;
+    }
   };
 
   return (
-    <section id="hero" className="flex items-center pt-28 pb-20 md:pt-36 md:pb-24 relative overflow-hidden bg-background">
-      {/* Background Orbs */}
-      <div className="light-orb w-[600px] h-[600px] -top-20 -left-20 opacity-20" />
-      <div className="light-orb w-[400px] h-[400px] bottom-20 right-20 opacity-10" />
-      <div className="noise" />
+    <section
+      id="hero"
+      aria-label="Hero Introduction"
+      className="relative pt-32 pb-20 sm:pt-36 sm:pb-24 lg:pt-44 lg:pb-32 overflow-hidden"
+    >
+      <div className="container-custom relative z-10">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
+          {/* Left Column: Editorial Content */}
+          <div className="lg:col-span-7 flex flex-col items-center text-center lg:items-start lg:text-left">
+            <StaggerContainer staggerDelay={0.09} delayChildren={0.1}>
+              {/* Availability Badge */}
+              <motion.div variants={itemVariant} className="mb-6">
+                <Badge variant="teal" showDot={true} dotPulse={true}>
+                  {heroData.badge.status}
+                </Badge>
+              </motion.div>
 
-      {/* Hero Text Glow */}
-      <div className="absolute top-1/2 left-1/4 -translate-y-1/2 w-96 h-96 bg-primary/10 blur-[120px] rounded-full pointer-events-none" />
+              {/* Editorial Heading */}
+              <motion.h1
+                variants={itemVariant}
+                className="font-display text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight text-slate-900 leading-[1.08] mb-6"
+              >
+                <span>{heroData.name.first}</span>{' '}
+                <span className="text-teal-700">{heroData.name.last}</span>
+              </motion.h1>
 
-      <div className="container-custom relative z-10 flex flex-col md:flex-row items-center gap-16">
-        {/* Left Content with Staggered entry */}
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          animate="visible"
-          className="flex-1 text-center md:text-left"
-        >
-          <motion.div
-            variants={itemVariants}
-            className="inline-block px-4 py-1.5 rounded-full bg-blue-500/10 border border-blue-500/30 mb-8 mt-16 md:mt-0"
-          >
-            <span className="text-blue-400 font-bold text-xs uppercase tracking-widest">Available for Innovation</span>
-          </motion.div>
+              {/* Role Sub-heading */}
+              <motion.p
+                variants={itemVariant}
+                className="text-lg sm:text-xl font-semibold text-slate-700 tracking-tight mb-4"
+              >
+                {heroData.role}
+              </motion.p>
 
-          <motion.h1 variants={itemVariants} className="text-5xl md:text-8xl font-bold leading-[1.1] mb-8 tracking-tight">
-            <span className="text-white">Aditya</span> <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-500 via-purple-500 to-indigo-500 tracking-tight">
-              Choubey
-            </span>
-          </motion.h1>
+              {/* Introduction Paragraph */}
+              <motion.p
+                variants={itemVariant}
+                className="text-base sm:text-lg text-slate-600 max-w-xl leading-relaxed mb-8"
+              >
+                {heroData.description}
+              </motion.p>
 
-          <motion.p variants={itemVariants} className="text-xl md:text-2xl text-white/40 mb-12 max-w-xl leading-relaxed font-medium">
-            Creative Frontend Developer & <span className="text-white">Community Architect</span> crafting digital ecosystems with precision.
-          </motion.p>
+              {/* Action Buttons (CTAs) */}
+              <motion.div
+                variants={itemVariant}
+                className="flex flex-col sm:flex-row items-center gap-3.5 w-full sm:w-auto mb-10"
+              >
+                <Button
+                  href={heroData.ctas.primary.href}
+                  variant="primary"
+                  size="md"
+                  icon={<ArrowRight size={16} />}
+                  className="w-full sm:w-auto"
+                >
+                  {heroData.ctas.primary.text}
+                </Button>
+                <Button
+                  href={heroData.ctas.secondary.href}
+                  variant="secondary"
+                  size="md"
+                  className="w-full sm:w-auto"
+                >
+                  {heroData.ctas.secondary.text}
+                </Button>
+              </motion.div>
 
-          <motion.div variants={itemVariants} className="flex flex-col sm:flex-row items-center gap-6 justify-center md:justify-start mb-14">
-            <a href="#projects" className="btn-primary w-full sm:w-auto">
-              Explore Works
-              <span className="text-xl">→</span>
-            </a>
-            <a href="#contact" className="btn-secondary w-full sm:w-auto">
-              Let's Talk
-            </a>
-          </motion.div>
-
-          {/* Scroll Indicator mimicking the screenshot */}
-          <motion.div 
-            variants={itemVariants} 
-            className="flex flex-col items-center md:items-start gap-2.5 opacity-40 select-none mt-12"
-          >
-            <span className="text-[9px] font-extrabold tracking-[0.3em] text-white/60 uppercase">
-              Scroll To Explore
-            </span>
-            <div className="w-[18px] h-[30px] rounded-full border-2 border-white/30 flex justify-center p-1 relative overflow-hidden">
-              <motion.div 
-                animate={{ y: [0, 8, 0] }}
-                transition={{ repeat: Infinity, duration: 1.6, ease: "easeInOut" }}
-                className="w-1 h-1.5 bg-blue-400 rounded-full"
-              />
-            </div>
-          </motion.div>
-        </motion.div>
-
-        {/* Right Image with 3D Depth effects */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0.9, x: 50 }}
-          animate={{ opacity: 1, scale: 1, x: 0 }}
-          transition={{ duration: 0.8 }}
-          className="flex-1 relative group"
-        >
-          <div className="relative w-full max-w-[450px] aspect-[4/5] mx-auto perspective-1000">
-            {/* Soft Rotating Gradient Halo */}
-            <div className="halo-gradient-container" />
-
-            {/* Concentric Animated Depth Rings */}
-            <div className="depth-ring depth-ring-1" />
-            <div className="depth-ring depth-ring-2" />
-
-            {/* Pulsing Glow Border Wrapper */}
-            <div className="absolute -inset-4 bg-gradient-to-br from-blue-500/30 via-purple-500/30 to-indigo-500/30 rounded-[2rem] blur-2xl opacity-20 group-hover:opacity-40 transition-opacity duration-500 animate-glow-pulse" />
-            
-            {/* Interactive 3D Frame */}
-            <motion.div
-              ref={cardRef}
-              onMouseMove={handleMouseMove}
-              onMouseLeave={handleMouseLeave}
-              style={{ rotateX, rotateY, transformStyle: "preserve-3d" }}
-              className="relative h-full w-full rounded-[2rem] overflow-hidden border border-white/10 glass-premium shadow-[0_50px_100px_-20px_rgba(0,0,0,0.6)] transition-all duration-300"
-            >
-               {/* Floating Holographic Glow Overlay */}
-               <div className="absolute inset-0 bg-gradient-to-tr from-blue-500/20 via-purple-500/20 to-pink-500/20 mix-blend-overlay opacity-30 pointer-events-none z-10 animate-pulse-slow" />
-
-               {/* Dynamic spotlight sheeting highlighting */}
-               <motion.div 
-                 style={{
-                   background: useTransform(
-                     [reflectX, reflectY],
-                     ([rx, ry]) => `radial-gradient(circle 220px at ${rx}% ${ry}%, rgba(255, 255, 255, 0.15) 0%, transparent 80%)`
-                   ),
-                   zIndex: 15
-                 }}
-                 className="absolute inset-0 pointer-events-none"
-               />
-
-               <img 
-                 src={adityaPic} 
-                 alt="Aditya Choubey" 
-                 className="w-full h-full object-cover img-premium scale-102" 
-               />
-               
-               {/* Overlay Content */}
-               <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-transparent to-transparent pointer-events-none" />
-               <div className="absolute bottom-8 left-8" style={{ transform: "translateZ(30px)" }}>
-                 <p className="text-primary font-bold text-sm tracking-[0.3em] uppercase mb-1">Based in Delhi, India</p>
-                 <h2 className="text-3xl font-bold text-white italic">Aditya Choubey</h2>
-               </div>
-            </motion.div>
+              {/* Social Links */}
+              <motion.div
+                variants={itemVariant}
+                className="flex items-center gap-2.5 pt-4 border-t border-slate-200/60"
+              >
+                <span className="text-xs font-semibold text-slate-500 uppercase tracking-wider mr-2">
+                  Connect:
+                </span>
+                {heroData.socials.map((social) => (
+                  <a
+                    key={social.name}
+                    href={social.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={social.ariaLabel}
+                    className="w-9 h-9 rounded-xl bg-white border border-slate-200/90 text-slate-600 hover:text-teal-700 hover:border-teal-500/40 hover:bg-teal-50/50 flex items-center justify-center transition-all duration-200 shadow-soft-xs hover:shadow-soft hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-600"
+                  >
+                    {getSocialIcon(social.name)}
+                  </a>
+                ))}
+              </motion.div>
+            </StaggerContainer>
           </div>
-        </motion.div>
+
+          {/* Right Column: Interactive Profile Card */}
+          <div className="lg:col-span-5 flex justify-center w-full">
+            <ProfileCard metadata={heroData.profileCard} />
+          </div>
+        </div>
       </div>
     </section>
   );

@@ -38,7 +38,7 @@ const ProjectDetail = () => {
 
   if (!project) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-background">
+      <div className="min-h-screen flex items-center justify-center bg-[#020617] text-white">
         <div className="text-center">
           <h1 className="text-4xl font-black mb-6">Oops! Project Not Found</h1>
           <Link to="/" className="text-primary hover:underline italic font-bold">Back to Reality →</Link>
@@ -53,7 +53,7 @@ const ProjectDetail = () => {
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       transition={{ duration: 0.4 }}
-      className="bg-background min-h-screen text-white font-sans selection:bg-primary/30 relative"
+      className="bg-[#020617] min-h-screen text-white font-sans selection:bg-primary/30 relative"
     >
       {/* Global Noise Overlay */}
       <div className="noise" />
